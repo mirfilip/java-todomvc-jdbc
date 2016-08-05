@@ -1,0 +1,45 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TodoMVC using Embedded Server / Mustache templates</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section id="todoapp">
+  <header id="header">
+    <h1>todos</h1>
+    <form method="post" action="todos">
+      <input id="new-todo" name="new-todo" placeholder="What needs to be done?" autofocus="autofocus" autocomplete="off">
+    </form>
+  </header>
+  <section id="main" class="empty-{{areTodosEmpty}}">
+    <input id="toggle-all" type="checkbox"><label for="toggle-all">Mark all as complete</label>
+    <ul id="todo-list">
+        {{#todos}}
+        <li class="{{status}}">
+          <div class="view">
+            <form method="post" action="toggleStatus">
+                <input type="hidden" name="todo-id" value="{{id}}" />
+                <button class="toggle"></button>
+                <label>{{todo}}</label>
+            </form>
+            <form method="post" action="deleteTodo">
+                <input type="hidden" name="todo-id" value="{{id}}" /><button class="destroy"></button></form>
+          </div>
+        </li>
+        {{/todos}}
+    </ul>
+  </section>
+  <footer id="footer" class="empty-{{areTodosEmpty}}">
+    <span id="todo-count"><strong>{{todosLeft}}</strong> item{{#pluralTodos}}s{{/pluralTodos}} left</span>
+    <!-- Hidden if no completed items are left ↓ -->
+    <form method="post" action="clearTodo">
+      <button id="clear-completed" class="empty-{{areAllCompleted}}">Clear completed ({{todosCompleted}})</button>
+    </form>
+  </footer>
+</section>
+<footer id="info">
+</footer>
+</body>
+</html>
