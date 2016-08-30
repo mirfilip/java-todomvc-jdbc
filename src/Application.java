@@ -15,17 +15,13 @@ public class Application implements Controller {
     }
 
     private void insertDummyTodos() {
-        /*
-          Done just to have a different times of Todo insertion
-         */
-        try {
-            repository.save(new Todo("Learn Servlets"));
-            Thread.sleep(1000);
-            repository.save(new Todo(new Todo("Completed"), Todo.Status.COMPLETED));
-        } catch (InterruptedException e) {
-        } finally {
-            System.out.println("Inserted " + repository.count() + " dummy todos");
-        }
+        Todo first = new Todo("Learn Servlets");
+        Todo second = new Todo(first.getId() + 1, "Completed", Todo.Status.COMPLETED);
+
+        repository.save(first);
+        repository.save(second);
+        
+        System.out.println("Inserted " + repository.count() + " dummy todos");
     }
 
     public Map<String, Collection<Todo>> handle(String requestMethod, String requestUri, Map<String, String> params) throws InvalidArgumentException {
