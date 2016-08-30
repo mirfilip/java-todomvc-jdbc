@@ -7,20 +7,16 @@ import java.util.Map;
 
 public class Application implements Controller {
 
-    private final InMemoryRepository repository;
+    private final RdbmsRepository repository;
 
-    public Application(InMemoryRepository repo) {
+    public Application(RdbmsRepository repo) {
         repository = repo;
         this.insertDummyTodos();
     }
 
-    public Application() {
-        this(new InMemoryRepository());
-    }
-
     private void insertDummyTodos() {
-        /**
-         * Done just to have a different times of Todo insertion
+        /*
+          Done just to have a different times of Todo insertion
          */
         try {
             repository.save(new Todo("Learn Servlets"));
@@ -103,6 +99,7 @@ public class Application implements Controller {
         Todo todo = repository.findOne(todoId);
         Todo.Status toggledStatus = todo.getStatus() == Todo.Status.ACTIVE ? Todo.Status.COMPLETED : Todo.Status.ACTIVE;
 
+        // TODO: Don't create a new TODO, just allow status changes
         Todo changedTodo = new Todo(todo, toggledStatus);
         repository.save(changedTodo);
     }

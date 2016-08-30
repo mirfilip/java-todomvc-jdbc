@@ -52,10 +52,9 @@ public final class JdkHttpServer implements Server {
         public void handle(HttpExchange httpExchange) throws IOException {
             String url = httpExchange.getRequestURI().toString();
 
-            /**
-             * Redirect "/" to "/todos"
-             *
-             * For other resources, serve 404
+            /*
+              Redirect "/" to "/todos"
+              For other resources, serve 404
              */
             if (url.equals("/")) {
                 // TODO: Change url if possible
