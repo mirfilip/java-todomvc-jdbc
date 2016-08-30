@@ -8,7 +8,7 @@ interface Repository {
     /**
      * Returns the number of entities found.
      *
-     * @return the number of entities
+     * @return the number of entities or {@code -1} if cannot be read
      */
     long count();
 
